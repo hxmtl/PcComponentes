@@ -1,0 +1,339 @@
+﻿<Page
+    x:Class="PC_Componentes_UWP.Views.MainPage"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+	xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+	xmlns:extensions="using:Microsoft.Toolkit.Uwp.UI.Extensions"
+    extensions:StatusBar.IsVisible="False"
+    NavigationCacheMode="Enabled">
+	<Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+		<!-- Responsividad (Visual States) -->
+		<VisualStateManager.VisualStateGroups>
+			<VisualStateGroup x:Name="Responsividad">
+				<!-- Estado para móvil -->
+				<VisualState  x:Name="Movil">
+					<VisualState.StateTriggers>
+						<AdaptiveTrigger MinWindowWidth = "0"/>
+					</VisualState.StateTriggers>
+					<!-- Cambios -->
+					<VisualState.Setters>
+						<!-- CommandBar -->
+						<Setter Target="BarraNavegacion.DefaultLabelPosition" Value="Bottom"/>
+					</VisualState.Setters>
+				</VisualState>
+				<!-- Estado para Tablet -->
+				<VisualState  x:Name="Tablet">
+					<VisualState.StateTriggers>
+						<AdaptiveTrigger MinWindowWidth = "777"/>
+					</VisualState.StateTriggers>
+					<!-- Cambios -->
+					<VisualState.Setters>
+						<!-- WebView -->
+						<Setter Target="Vista.Margin" Value="0,0,0,48"/>
+						<!-- Barra superior móvil -->
+						<Setter Target="BarraSuperiorMovil.Visibility" Value="Collapsed"/>
+						<Setter Target="BotonCategoriasInferior.Visibility" Value="Collapsed"/>
+					</VisualState.Setters>
+				</VisualState>
+				<!-- Estado para PC -->
+				<VisualState  x:Name="PC">
+					<VisualState.StateTriggers>
+						<AdaptiveTrigger MinWindowWidth = "1333"/>
+					</VisualState.StateTriggers>
+					<!-- Cambios -->
+					<VisualState.Setters>
+						<!-- CommandBar -->
+						<Setter Target="BarraNavegacion.VerticalAlignment" Value="Top"/>
+						<Setter Target="BarraNavegacion.Background" Value="{ThemeResource ColorApp}"/>
+						<Setter Target="BarraNavegacion.Foreground" Value="White"/>
+						<Setter Target="HomeButton.Foreground" Value="White"/>
+						<Setter Target="ShareButton.Foreground" Value="White"/>
+						<Setter Target="BackButton.Foreground" Value="White"/>
+						<Setter Target="FowardButton.Foreground" Value="White"/>
+						<Setter Target="RefreshButton.Foreground" Value="White"/>
+						<!-- WebView -->
+						<Setter Target="Vista.Margin" Value="0,30,0,0"/>
+						<!-- Barra superior movil -->
+						<Setter Target="BarraSuperiorMovil.Visibility" Value="Collapsed"/>
+						<Setter Target="BotonCategoriasInferior.Visibility" Value="Collapsed"/>
+						<!-- Boton "To Top" -->
+						<Setter Target="ToTopButton.Margin" Value="0,0,11,21"/>
+						<!-- PorgressBar -->
+						<Setter Target="ProgRing.VerticalAlignment" Value="Top"/>
+						<Setter Target="ProgRing.Margin" Value="0,50,0,0"/>
+					</VisualState.Setters>
+				</VisualState>
+			</VisualStateGroup>
+		</VisualStateManager.VisualStateGroups>
+		<!-- Categorías -->
+		<SplitView x:Name="MenuCategorias" IsPaneOpen="False" PanePlacement="Left" OpenPaneLength="280" DisplayMode="Overlay" Visibility="Visible">
+			<!-- Elementos Categorías -->
+			<SplitView.Pane>
+				<Grid>
+					<!-- Texto Categorías -->
+					<Grid Height="48" Background="{ThemeResource ColorApp}" VerticalAlignment="Top">
+						<TextBlock Text="CATEGORÍAS" Foreground="White" Style="{ThemeResource FlyoutPickerTitleTextBlockStyle}" HorizontalAlignment="Left" Margin="16,0,0,0" VerticalAlignment="Center"/>
+						<Button Content="" HorizontalAlignment="Right" VerticalAlignment="Center" Style="{StaticResource BotonesCuadrados}" Click="CategoriasButton_Click"/>
+					</Grid>
+					<ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Margin="0,48,0,0">
+						<StackPanel>
+							<Button x:Name="Componentes" Style="{StaticResource BotonesCategorias}" Click="Componentes_Click">
+								<StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+									<Grid Height="48" Width="48">
+										<TextBlock Text="" FontFamily="Segoe MDL2 Assets" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+									</Grid>
+									<TextBlock Text="Componentes" VerticalAlignment="Center" FontSize="16"/>
+								</StackPanel>
+                            </Button>
+                            <Button x:Name="Ordenadores" Style="{StaticResource BotonesCategorias}" Click="Ordenadores_Click">
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                    <Grid Height="48" Width="48">
+                                        <TextBlock Text="" FontFamily="Segoe MDL2 Assets" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </Grid>
+                                    <TextBlock Text="Ordenadores" VerticalAlignment="Center" FontSize="16"/>
+                                </StackPanel>
+                            </Button>
+                            <Button x:Name="Smartphones" Style="{StaticResource BotonesCategorias}" Click="Smartphones_Click">
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                    <Grid Height="48" Width="48">
+                                        <TextBlock Text="" FontFamily="Segoe MDL2 Assets" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </Grid>
+                                    <TextBlock Text="SmartPhones" VerticalAlignment="Center" FontSize="16"/>
+                                </StackPanel>
+                            </Button>
+                            <Button x:Name="Perifericos" Style="{StaticResource BotonesCategorias}" Click="Perifericos_Click">
+								<StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+									<Grid Height="48" Width="48">
+										<TextBlock Text="" FontFamily="Segoe MDL2 Assets" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+									</Grid>
+									<TextBlock Text="Periféricos" VerticalAlignment="Center" FontSize="16"/>
+								</StackPanel>
+                            </Button>
+                            <Button x:Name="Multimedia" Style="{StaticResource BotonesCategorias}" Click="Multimedia_Click">
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                    <Grid Height="48" Width="48">
+                                        <TextBlock Text="" FontFamily="Segoe MDL2 Assets" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </Grid>
+                                    <TextBlock Text="Audio | Foto | Vídeo" VerticalAlignment="Center" FontSize="16"/>
+                                </StackPanel>
+                            </Button>
+                            <Button x:Name="Tablets" Style="{StaticResource BotonesCategorias}" Click="Tablets_Click">
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                    <Grid Height="48" Width="48">
+                                        <TextBlock Text="" FontFamily="Segoe MDL2 Assets" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </Grid>
+                                    <TextBlock Text="Tablets | E-books" VerticalAlignment="Center" FontSize="16"/>
+                                </StackPanel>
+                            </Button>
+                            <Button x:Name="Gaming" Style="{StaticResource BotonesCategorias}" Click="Gaming_Click">
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                    <Grid Height="48" Width="48">
+                                        <TextBlock Text="" FontFamily="Segoe MDL2 Assets" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </Grid>
+                                    <TextBlock Text="Consolas | Gaming" VerticalAlignment="Center" FontSize="16"/>
+                                </StackPanel>
+                            </Button>
+                            <Button x:Name="Consumibles" Style="{StaticResource BotonesCategorias}" Click="Consumibles_Click">
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                    <Grid Height="48" Width="48">
+                                        <TextBlock Text="" FontFamily="Segoe MDL2 Assets" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </Grid>
+                                    <TextBlock Text="Consumibles" VerticalAlignment="Center" FontSize="16"/>
+                                </StackPanel>
+                            </Button>
+                            <Button x:Name="Hogar" Style="{StaticResource BotonesCategorias}" Click="Hogar_Click">
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                    <Grid Height="48" Width="48">
+                                        <TextBlock Text="" FontFamily="Segoe MDL2 Assets" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </Grid>
+                                    <TextBlock Text="Electro-Hogar" VerticalAlignment="Center" FontSize="16"/>
+                                </StackPanel>
+                            </Button>
+							<Button x:Name="Redes" Style="{StaticResource BotonesCategorias}" Click="Redes_Click">
+								<StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+									<Grid Height="48" Width="48">
+										<TextBlock Text="" FontFamily="Segoe MDL2 Assets" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+									</Grid>
+									<TextBlock Text="Redes" VerticalAlignment="Center" FontSize="16"/>
+								</StackPanel>
+                            </Button>
+                            <Button x:Name="Cables" Style="{StaticResource BotonesCategorias}" Click="Cables_Click">
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                    <Grid Height="48" Width="48">
+                                        <TextBlock Text="" FontFamily="Segoe MDL2 Assets" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </Grid>
+                                    <TextBlock Text="Cables" VerticalAlignment="Center" FontSize="16"/>
+                                </StackPanel>
+                            </Button>
+                            <Button x:Name="Ocio" Style="{StaticResource BotonesCategorias}" Click="Ocio_Click">
+								<StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+									<Grid Height="48" Width="48">
+										<TextBlock Text="" FontFamily="Segoe MDL2 Assets" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+									</Grid>
+									<TextBlock Text="Ocio y tiempo libre" VerticalAlignment="Center" FontSize="16"/>
+								</StackPanel>
+							</Button>
+						</StackPanel>
+					</ScrollViewer>
+				</Grid>
+			</SplitView.Pane>
+			<SplitView.Content>
+				<Grid>
+					<!-- WebView -->
+					<WebView x:Name="Vista" Source="http://www.pccomponentes.com/" Margin="0,-5,0,48" Visibility="Collapsed" CanDrag="True" AllowDrop="True" IsRightTapEnabled="True" ManipulationMode="All" ScriptNotify="Vista_ScriptNotify"/>
+					<Button x:Name="ToTopButton" Margin="0,0,11,69" Style="{ThemeResource BotonRedondo}" Content="" Click="ToTopButton_Click"/>
+					<!-- ProgressBar -->
+					<ProgressBar x:Name="ProgRing" IsIndeterminate="True"
+                                 Foreground="{ThemeResource ColorApp}"
+                                 VerticalAlignment="Bottom"
+                                 HorizontalAlignment="Stretch"
+                                 Margin="0,0,0,50"/>
+					<!-- Barra Navegación -->
+					<CommandBar
+                        x:Name="BarraNavegacion"
+                        VerticalAlignment="Bottom"
+                        DefaultLabelPosition="Right"
+                        HorizontalContentAlignment="Left"
+                        VerticalContentAlignment="Center">
+						<CommandBar.Transitions>
+							<TransitionCollection>
+								<EdgeUIThemeTransition Edge="Bottom"/>
+							</TransitionCollection>
+						</CommandBar.Transitions>
+						<CommandBar.PrimaryCommands>
+							<!-- Botones Principales -->
+							<AppBarButton x:Name="HomeButton" Icon="Home" Label="Inicio" ToolTipService.ToolTip="Ir a la página principal" Click="HomeButton_Click" MinWidth="55" />
+							<AppBarButton x:Name="BackButton" Icon="Back" Label="Atrás" ToolTipService.ToolTip="Atrás" Click="AppBarButton_Click"  MinWidth="55"/>
+							<AppBarButton x:Name="ShareButton" Label="Compartir" ToolTipService.ToolTip="Compartir página web" Click="AppBarButton_Click_3"  MinWidth="55">
+								<AppBarButton.Icon>
+									<FontIcon Glyph="&#xE72D;"/>
+								</AppBarButton.Icon>
+							</AppBarButton>
+							<AppBarButton x:Name="FowardButton" Icon="Forward" Label="Adelante" ToolTipService.ToolTip="Adelante" Click="AppBarButton_Click_1"  MinWidth="55"/>
+							<AppBarButton x:Name="RefreshButton" Icon="Refresh" Label="Actualizar" ToolTipService.ToolTip="Actualizar" Click="AppBarButton_Click_2"  MinWidth="55"/>
+						</CommandBar.PrimaryCommands>
+						<CommandBar.SecondaryCommands>
+							<AppBarButton Label="Abrir en el navegador" Icon="Globe" Click="AppBarButton_Click_4"/>
+							<AppBarButton x:Name="ClearCacheButton" Icon="Delete" Label="Borrar cache" ToolTipService.ToolTip="Borrar cache" Click="ClearCacheButton_Click"/>
+							<AppBarSeparator/>
+							<AppBarButton Label="Configuración" Icon="Setting" Click="GoToAbout_Click"/>
+						</CommandBar.SecondaryCommands>
+						<CommandBar.Content>
+							<!-- Botón categorías inferior -->
+							<AppBarButton x:Name="BotonCategoriasInferior" Icon="List" Visibility="Collapsed" Width="48" Foreground="{ThemeResource ColorApp}" Click="CategoriasButton_Click"/>
+						</CommandBar.Content>
+					</CommandBar>
+					<!-- Móvil -->
+					<!-- Barra superior -->
+					<Grid x:Name="BarraSuperiorMovil"
+                          Height="48"
+                          Background="{ThemeResource ColorApp}"
+                          Visibility="Visible"
+                          VerticalAlignment="Top"
+                          HorizontalAlignment="Stretch">
+						<Grid.Transitions>
+							<TransitionCollection>
+								<EdgeUIThemeTransition Edge="Top"/>
+							</TransitionCollection>
+						</Grid.Transitions>
+						<!-- Botón categorías -->
+						<Button
+                            x:Name="CategoriasButton"
+                            Content=""
+                            HorizontalAlignment="Left"
+                            Style="{ThemeResource BotonesCuadrados}"
+                            Click="CategoriasButton_Click"/>
+						<Image x:Name="ImagenMovil" Source="ms-appx:///Assets/Logo.png" Height="36" Width="36" Margin="48,0,0,0" HorizontalAlignment="Left" Tapped="ImagenMovil_Tapped"/>
+						<StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+							<Button
+                                x:Name="SearchButton"
+                                Content=""
+                                Style="{ThemeResource BotonesCuadrados}"
+                                Width="55"
+                                Click="SearchButton_Click"/>
+							<Button
+                                x:Name="UserButton"
+                                Content=""
+                                Style="{ThemeResource BotonesCuadrados}"
+                                Width="55"
+                                Click="UserButton_Click"/>
+							<Button
+                                x:Name="CartButton"
+                                Content=""
+                                Style="{ThemeResource BotonesCuadrados}"
+                                Width="55"
+                                Click="CartButton_Click"/>
+						</StackPanel>
+						<StackPanel
+                            x:Name="InterfazBusqueda"
+                            Orientation="Horizontal"
+                            HorizontalAlignment="Right"
+                            Visibility="Collapsed">
+							<AutoSuggestBox
+                                x:Name="CuadroBusqueda"
+                                PlaceholderText="Busca en PcComponentes..."
+                                VerticalAlignment="Center"
+                                Width="300"
+                                Margin="6"
+                                QueryIcon="Find"
+                                QuerySubmitted="CuadroBusqueda_QuerySubmitted"/>
+							<Button
+                                x:Name="CerrarBusqueda"
+                                Content=""
+                                Style="{ThemeResource BotonesCuadrados}"
+                                Width="48"
+                                Click="CerrarBusqueda_Click"/>
+						</StackPanel>
+					</Grid>
+					<!-- Mensaje Error -->
+					<StackPanel
+                        x:Name="ErrorMessage"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Visibility="Collapsed">
+						<StackPanel.Transitions>
+							<TransitionCollection>
+								<AddDeleteThemeTransition/>
+							</TransitionCollection>
+						</StackPanel.Transitions>
+						<StackPanel
+                            Orientation="Horizontal"
+                            HorizontalAlignment="Center">
+							<TextBlock
+                                Text=":("
+                                FontSize="48"
+                                FontFamily="Segoe UI Emoji"
+                                Foreground="{ThemeResource ColorApp}"
+                                VerticalAlignment="Center"
+                                Margin="0,0,16,0"/>
+							<TextBlock
+                                Style="{ThemeResource SubheaderTextBlockStyle}"
+                                Text="Lo sentimos"
+                                VerticalAlignment="Center"/>
+						</StackPanel>
+						<TextBlock
+                            HorizontalAlignment="Center"
+                            FontFamily="Segoe MDL2 Assets"
+                            Text=""
+                            FontSize="48"
+                            Foreground="{ThemeResource ColorApp}"
+                            Margin="0,23,0,11"/>
+						<TextBlock
+                            HorizontalAlignment="Center"
+                            Style="{ThemeResource SubtitleTextBlockStyle}"
+                            Text="No hay conexión a internet."/>
+						<TextBlock
+                            HorizontalAlignment="Center"
+                            Style="{ThemeResource SubtitleTextBlockStyle}">
+                                   Comprueba tu conexión y 
+							<Hyperlink Foreground="{ThemeResource ColorApp}" Click="Hyperlink_Click">vuelve a intentarlo.</Hyperlink>
+						</TextBlock>
+					</StackPanel>
+				</Grid>
+			</SplitView.Content>
+		</SplitView>
+	</Grid>
+</Page>

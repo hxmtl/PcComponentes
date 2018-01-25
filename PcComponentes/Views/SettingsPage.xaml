@@ -1,0 +1,415 @@
+﻿<Page
+    x:Class="PC_Componentes_UWP.Views.SettingsPage"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:helper="using:PC_Componentes_UWP.Helpers"
+	xmlns:xaml="using:Windows.UI.Xaml"
+	xmlns:Windows10FallCreatorsUpdate="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract, 5)"
+    mc:Ignorable="d">
+	<Page.Resources>
+		<helper:EnumToBooleanConverter x:Key="EnumToBooleanConverter" EnumType="ElementTheme" />
+	</Page.Resources>
+	<Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+		<Grid.Transitions>
+			<TransitionCollection>
+				<EntranceThemeTransition/>
+			</TransitionCollection>
+		</Grid.Transitions>
+		<!-- Responsividad (Visual States) -->
+		<VisualStateManager.VisualStateGroups>
+			<VisualStateGroup x:Name="Responsividad">
+				<!-- Estado para móvil -->
+				<VisualState  x:Name="Movil">
+					<VisualState.StateTriggers>
+						<AdaptiveTrigger MinWindowWidth = "0"/>
+					</VisualState.StateTriggers>
+					<!-- Cambios -->
+					<VisualState.Setters>
+						<Setter Target="PanelLateral.IsPaneOpen" Value="False"/>
+						<Setter Target="PanelLateral.DisplayMode" Value="Inline"/>
+					</VisualState.Setters>
+				</VisualState>
+				<!-- Estado para Tablet -->
+				<VisualState  x:Name="Tablet">
+					<VisualState.StateTriggers>
+						<AdaptiveTrigger MinWindowWidth = "777"/>
+					</VisualState.StateTriggers>
+					<!-- Cambios -->
+					<VisualState.Setters>
+						<Setter Target="PanelLateral.IsPaneOpen" Value="False"/>
+						<Setter Target="Iconos.HorizontalAlignment" Value="Left"/>
+						<Setter Target="Iconos1.HorizontalAlignment" Value="Left"/>
+					</VisualState.Setters>
+				</VisualState>
+				<!-- Estado para PC -->
+				<VisualState  x:Name="PC">
+					<VisualState.StateTriggers>
+						<AdaptiveTrigger MinWindowWidth = "1333"/>
+					</VisualState.StateTriggers>
+					<!-- Cambios -->
+					<VisualState.Setters>
+						<Setter Target="Iconos.HorizontalAlignment" Value="Left"/>
+						<Setter Target="Iconos1.HorizontalAlignment" Value="Left"/>
+					</VisualState.Setters>
+				</VisualState>
+			</VisualStateGroup>
+		</VisualStateManager.VisualStateGroups>
+		<!-- Menu lateral + Pivot -->
+		<SplitView
+            x:Name="PanelLateral"
+            IsPaneOpen="True"
+            DisplayMode="CompactInline"
+            OpenPaneLength="320"
+            CompactPaneLength="64">
+			<!-- Panel lateral (PC) -->
+			<SplitView.Pane>
+				<ListView
+                    SelectionMode="None"
+                    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+					<ListViewItem Padding="0">
+						<Grid VerticalAlignment="Center" Width="320" BorderThickness="0,0,0,1" BorderBrush="{ThemeResource ColorApp}">
+							<Grid Height="64" Width="64" VerticalAlignment="Center" HorizontalAlignment="Left">
+								<TextBlock Text="" Style="{ThemeResource IconoPequeño}" FontSize="32" HorizontalAlignment="Center"/>
+							</Grid>
+							<TextBlock Text="CONFIGURACIÓN" Style="{ThemeResource TitleTextBlockStyle}" Margin="64,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+						</Grid>
+					</ListViewItem>
+					<ListViewItem Name="AjustesItem" Padding="0" Tapped="AjustesItem_Tapped">
+						<StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+							<Grid Height="64" Width="64">
+								<TextBlock Text="" Style="{ThemeResource IconoPequeño}" HorizontalAlignment="Center"/>
+							</Grid>
+							<StackPanel VerticalAlignment="Center">
+								<TextBlock Text="Ajustes" Style="{ThemeResource BaseTextBlockStyle}"/>
+								<TextBlock Text="Apariencia, colores..." Style="{ThemeResource BodyTextBlockStyle}"/>
+							</StackPanel>
+						</StackPanel>
+					</ListViewItem>
+					<ListViewItem Name="AcercaDeItem" Padding="0" Tapped="AcercaDeItem_Tapped">
+						<StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+							<Grid Height="64" Width="64">
+								<TextBlock Text="" Style="{ThemeResource IconoPequeño}" HorizontalAlignment="Center"/>
+							</Grid>
+							<StackPanel VerticalAlignment="Center">
+								<TextBlock Text="Acerca de" Style="{ThemeResource BaseTextBlockStyle}"/>
+								<TextBlock Text="Información, versión, feedback..." Style="{ThemeResource BodyTextBlockStyle}"/>
+							</StackPanel>
+						</StackPanel>
+					</ListViewItem>
+					<ListViewItem Name="ChangelogItem" Padding="0" Tapped="ChangelogItem_Tapped">
+						<StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+							<Grid Height="64" Width="64">
+								<TextBlock Text="" Style="{ThemeResource IconoPequeño}" HorizontalAlignment="Center"/>
+							</Grid>
+							<StackPanel VerticalAlignment="Center">
+								<TextBlock Text="Changelog" Style="{ThemeResource BaseTextBlockStyle}"/>
+								<TextBlock Text="Cambios de todas las versiones" Style="{ThemeResource BodyTextBlockStyle}"/>
+							</StackPanel>
+						</StackPanel>
+					</ListViewItem>
+					<ListViewItem Name="ProximamenteItem" Padding="0" Tapped="ProximamenteItem_Tapped">
+						<StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+							<Grid Height="64" Width="64">
+								<TextBlock Text="" Style="{ThemeResource IconoPequeño}" HorizontalAlignment="Center"/>
+							</Grid>
+							<StackPanel VerticalAlignment="Center">
+								<TextBlock Text="Próximamente" Style="{ThemeResource BaseTextBlockStyle}"/>
+								<TextBlock Text="Ideas y futuras mejoras" Style="{ThemeResource BodyTextBlockStyle}"/>
+							</StackPanel>
+						</StackPanel>
+					</ListViewItem>
+				</ListView>
+			</SplitView.Pane>
+			<SplitView.Content>
+				<Pivot x:Name="Pivot" HorizontalAlignment="Center">
+					<!-- Ajustes -->
+					<PivotItem x:Name="Ajustes" Header="Ajustes">
+						<ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+							<!-- Apariencia -->
+							<StackPanel>
+								<!-- Icono + Cabezera -->
+								<StackPanel Orientation="Horizontal">
+									<TextBlock Text="" FontSize="48" Style="{StaticResource IconoPequeño}"/>
+									<TextBlock Text="Apariencia" Style="{ThemeResource SubtitleTextBlockStyle}" Margin="6,0,0,0" VerticalAlignment="Center" TextWrapping="Wrap"/>
+								</StackPanel>
+								<!-- Radio Buttons tema -->
+								<TextBlock Text="Elegir el modo de la aplicación" Margin="0,3,0,0"/>
+								<RadioButton 
+                                    x:Uid="Settings_Theme_Light" 
+                                    GroupName="AppTheme"
+                                    Style="{ThemeResource RadioButtonNaranjito}"
+                                    Checked="ThemeChanged_CheckedAsync"
+                                    IsChecked="{x:Bind ElementTheme, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Light, Mode=TwoWay}">
+									<RadioButton.CommandParameter>
+										<xaml:ElementTheme>Light</xaml:ElementTheme>
+									</RadioButton.CommandParameter>
+								</RadioButton>
+								<RadioButton 
+                                    x:Uid="Settings_Theme_Dark" 
+                                    GroupName="AppTheme"
+                                    Style="{ThemeResource RadioButtonNaranjito}"
+                                    Checked="ThemeChanged_CheckedAsync" 
+                                    IsChecked="{x:Bind ElementTheme, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Dark, Mode=TwoWay}">
+									<RadioButton.CommandParameter>
+										<xaml:ElementTheme>Dark</xaml:ElementTheme>
+									</RadioButton.CommandParameter>
+								</RadioButton>
+								<RadioButton 
+                                    x:Uid="Settings_Theme_Default"
+                                    GroupName="AppTheme"
+                                    Style="{ThemeResource RadioButtonNaranjito}"
+                                    Checked="ThemeChanged_CheckedAsync"
+                                    IsChecked="{x:Bind ElementTheme, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Default, Mode=TwoWay}">
+									<RadioButton.CommandParameter>
+										<xaml:ElementTheme>Default</xaml:ElementTheme>
+									</RadioButton.CommandParameter>
+								</RadioButton>
+								<!-- Ver la configuración del sistema -->
+								<HyperlinkButton Content="Ver la configuración del sistema" NavigateUri="ms-settings:personalization-colors" Foreground="{ThemeResource ColorApp}"/>
+								<!-- Color de énfasis -->
+								<ToggleSwitch x:Uid="ColorEnfasis" x:Name="ColorEnfasis" Header="Usar color de énfasis" Toggled="GuardarEstado_Toggled" Style="{StaticResource ToggleSwitchNaranjito}" IsEnabled="False"/>
+								<!-- Icono + Cabezera -->
+								<StackPanel Orientation="Horizontal">
+									<TextBlock Text="" FontSize="48" Style="{StaticResource IconoPequeño}"/>
+									<TextBlock Text="Interfaz" Style="{ThemeResource SubtitleTextBlockStyle}" Margin="6,0,0,0" VerticalAlignment="Center" TextWrapping="Wrap"/>
+								</StackPanel>
+								<ToggleSwitch x:Uid="MenuNativo" x:Name="MenuNativo" Header="Menú de navegación superior nativo (móvil)" Toggled="GuardarEstado_Toggled" Style="{StaticResource ToggleSwitchNaranjito}"/>
+								<ToggleSwitch x:Uid="BotonInferior" x:Name="BotonInferior" Header="Botón abrir categorías en la barra inferior (móvil)" Toggled="GuardarEstado_Toggled" Style="{StaticResource ToggleSwitchNaranjito}"/>
+								<ToggleSwitch x:Uid="StatusBarVisibility" x:Name="StatusBarVisibility" Header="Mostrar la barra de estado superior (móvil)" Toggled="GuardarEstado_Toggled" Style="{StaticResource ToggleSwitchNaranjito}"/>
+								<ToggleSwitch x:Uid="PantallaCompleta" x:Name="PantallaCompleta" Header="Navegar a pantalla completa" Toggled="GuardarEstado_Toggled" Style="{StaticResource ToggleSwitchNaranjito}"/>
+							</StackPanel>
+						</ScrollViewer>
+					</PivotItem>
+					<!-- Acerca De -->
+					<PivotItem x:Name="AcercaDe" Header="Acerca de">
+						<ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+							<StackPanel>
+								<!-- Introducción -->
+								<StackPanel Margin="0,0,0,3">
+									<!-- Icono + Cabezera -->
+									<StackPanel Orientation="Horizontal">
+										<TextBlock Text="" FontSize="48" Style="{StaticResource IconoPequeño}"/>
+										<TextBlock Style="{ThemeResource SubtitleTextBlockStyle}" Margin="6,0,0,0" VerticalAlignment="Center" TextWrapping="Wrap" MaxWidth="400">
+                                Aplicación UWP no oficial de 
+											
+											
+											<Run FontStyle="Italic" Text="pccomponentes.com"/> para Windows 10
+                                        
+										
+										
+										</TextBlock>
+									</StackPanel>
+									<!-- Versión -->
+									<TextBlock x:Name="TextoVersion" Margin="0,12,0,0" Style="{StaticResource CaptionTextBlockStyle}"/>
+									<!-- Info -->
+									<TextBlock TextWrapping="Wrap">
+                                PcComponentes - 
+										
+										
+										<Hyperlink NavigateUri="http://www.pccomponentes.com/" Foreground="{ThemeResource ColorApp}">pccomponentes.com</Hyperlink>
+										<LineBreak/>La tienda de tecnología online líder por precio, calidad y servicio.
+                                    
+									
+									
+									</TextBlock>
+									<!-- Enlaces -->
+									<StackPanel Orientation="Horizontal">
+										<HyperlinkButton Foreground="{ThemeResource ColorApp}" Content="Privacidad" NavigateUri="https://www.pccomponentes.com/privacidad"/>
+										<AppBarSeparator/>
+										<HyperlinkButton Foreground="{ThemeResource ColorApp}" Content="Aviso Legal" NavigateUri="https://www.pccomponentes.com/aviso-legal"/>
+										<AppBarSeparator/>
+										<HyperlinkButton Foreground="{ThemeResource ColorApp}" Content="Cookies" NavigateUri="https://www.pccomponentes.com/cookies"/>
+									</StackPanel>
+								</StackPanel>
+								<!-- Feedback -->
+								<StackPanel Margin="0,3,0,3">
+									<!-- Icono + Cabezera -->
+									<StackPanel Orientation="Horizontal">
+										<TextBlock Text="" FontSize="48" Style="{StaticResource IconoPequeño}"/>
+										<TextBlock Text="Ayuda a mejorar la aplicación" Style="{ThemeResource SubtitleTextBlockStyle}" Margin="6,0,0,0" VerticalAlignment="Center" TextWrapping="Wrap" MaxWidth="300"/>
+									</StackPanel>
+									<!-- Texto Opiniones -->
+									<TextBlock  HorizontalAlignment="Left" TextWrapping="Wrap" MaxWidth="500">
+                                Nos encantaría saber tu opinión.
+                                
+										
+										
+										<LineBreak/>Por favor, tómate tu tiempo para dejarnos tus comentarios en la Tienda:
+                                    
+									
+									
+									</TextBlock>
+									<!-- Botón Opiniones -->
+									<StackPanel Orientation="Horizontal" Margin="0,11,0,0">
+										<Button Content="Calificar y opinar" Margin="0,0,11,0" Click="Button_Click" Style="{ThemeResource BotónNaranja}"/>
+										<TextBlock Text="" Style="{ThemeResource IconoPequeño}"/>
+										<TextBlock Text="" Style="{ThemeResource IconoPequeño}"/>
+										<TextBlock Text="" Style="{ThemeResource IconoPequeño}"/>
+										<TextBlock Text="" Style="{ThemeResource IconoPequeño}"/>
+										<TextBlock Text="" Style="{ThemeResource IconoPequeño}"/>
+									</StackPanel>
+									<!-- Texto Feedback Hub -->
+									<TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" MaxWidth="500" Margin="0,11,0,0">
+                                También puedes darnos más detalles sobre tus problemas, errores o sugerencias para el futuro:
+                                    </TextBlock>
+									<!-- Botón Feedback Hub -->
+									<StackPanel Orientation="Horizontal" Margin="0,11,0,0">
+										<Button Content="Enviar Feedback" Margin="0,0,11,0" Click="Button_Click_1" Style="{ThemeResource BotónNaranja}"/>
+										<TextBlock Text="" Style="{ThemeResource IconoPequeño}"/>
+										<TextBlock Text="" Style="{ThemeResource IconoPequeño}"/>
+										<TextBlock Text="" Style="{ThemeResource IconoPequeño}"/>
+										<TextBlock Text="" Style="{ThemeResource IconoPequeño}"/>
+										<TextBlock Text="" Style="{ThemeResource IconoPequeño}"/>
+									</StackPanel>
+									<!-- Texto foro -->
+									<TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" MaxWidth="500" Margin="0,11,0,0">
+                                            Visita el hilo general de la aplicación para mantenerte en contacto con el desarrollador y la comunidad:
+                                    </TextBlock>
+									<!-- Botón foro -->
+									<StackPanel Orientation="Horizontal" Margin="0,11,0,0">
+										<Button Content="Foroinsider.com" Margin="0,0,11,0" Style="{ThemeResource BotónNaranja}" Click="Button_Click_3"/>
+										<TextBlock Text="" Style="{ThemeResource IconoPequeño}"/>
+										<TextBlock Text="" Style="{ThemeResource IconoPequeño}"/>
+										<TextBlock Text="" Style="{ThemeResource IconoPequeño}"/>
+										<TextBlock Text="" Style="{ThemeResource IconoPequeño}"/>
+										<TextBlock Text="" Style="{ThemeResource IconoPequeño}"/>
+									</StackPanel>
+								</StackPanel>
+								<!-- Info Desarrollador-->
+								<StackPanel Margin="0,3,0,3" Windows10FallCreatorsUpdate:Spacing="3">
+									<!-- Icono + Cabezera-->
+									<StackPanel Orientation="Horizontal">
+										<TextBlock Text="" FontSize="48" Style="{StaticResource IconoPequeño}"/>
+										<TextBlock Text="Desarrollo" TextWrapping="Wrap" MaxWidth="300" Style="{ThemeResource SubtitleTextBlockStyle}" Margin="6,0,0,0" VerticalAlignment="Center"/>
+									</StackPanel>
+									<TextBlock Text="Aplicación desarrollada por Pablo Jiménez Pascual, un miembro de UA Devs."
+                                               Style="{ThemeResource CaptionTextBlockStyle}"/>
+									<!-- Enlaces -->
+									<StackPanel Orientation="Horizontal">
+										<TextBlock FontFamily="Segoe MDL2 Assets" Text="" VerticalAlignment="Center" FontSize="24" Foreground="#1DA1F2" Margin="0,0,6,0"/>
+										<HyperlinkButton NavigateUri="https://twitter.com/pablojim99" Foreground="#1DA1F2" Content="pablojim99"/>
+									</StackPanel>
+									<StackPanel Orientation="Horizontal">
+										<TextBlock FontFamily="Segoe MDL2 Assets" Text="" VerticalAlignment="Center" FontSize="24" Foreground="#1DA1F2" Margin="0,0,6,0"/>
+										<HyperlinkButton NavigateUri="https://github.com/UADevelops/PcComponentes" Foreground="#1DA1F2" Content="Proyecto en GitHub"/>
+									</StackPanel>
+									<StackPanel Orientation="Horizontal">
+										<TextBlock FontFamily="Segoe MDL2 Assets" Text="" VerticalAlignment="Center" FontSize="24" Foreground="#1DA1F2" Margin="0,0,6,0"/>
+										<HyperlinkButton NavigateUri="https://uadevs.org/" Foreground="#1DA1F2" Content="Web de UA Devs"/>
+									</StackPanel>
+									<StackPanel Orientation="Horizontal">
+										<TextBlock FontFamily="Segoe MDL2 Assets" Text="" VerticalAlignment="Center" FontSize="24" Foreground="#1DA1F2" Margin="0,0,6,0"/>
+										<HyperlinkButton NavigateUri="ms-windows-store://publisher/?name=UA Devs" Foreground="#1DA1F2" Content="Otras aplicaciones"/>
+									</StackPanel>
+								</StackPanel>
+								<Border BorderThickness="0.6" BorderBrush="Gray"/>
+								<!-- Apoyo Desarrollador-->
+								<StackPanel Margin="0,3,0,3">
+									<!-- Icono + Cabezera -->
+									<StackPanel Orientation="Horizontal">
+										<TextBlock Text="" FontSize="48" Style="{StaticResource IconoPequeño}"/>
+										<TextBlock Text="Apoya al desarrollador" Style="{ThemeResource SubtitleTextBlockStyle}" Margin="6,0,0,0" VerticalAlignment="Center" TextWrapping="Wrap" MaxWidth="300"/>
+									</StackPanel>
+									<!-- Texto apoyo -->
+									<TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" MaxWidth="500">
+                                ¡Muchas gracias por descargar la aplicación y aportar feedback!
+                                
+										
+										
+										<LineBreak/>Esta app está desarrollada de forma independiente sin la ayuda de pccomponentes.com. Por lo tanto, 
+                                si quieres ayudar al desarrollador para que siga mejorando la app o 
+                                como forma de agradecimiento puedes hacerlo aquí:
+                                    
+									
+									
+									</TextBlock>
+									<!-- Botones apoyo -->
+									<StackPanel Orientation="Horizontal" Margin="0,11,0,0">
+										<Button Content="Donar" Margin="0,0,11,0" Style="{StaticResource BotónNaranja}" Click="Button_Click_2"/>
+										<TextBlock Text="" Style="{StaticResource IconoPequeño}"/>
+									</StackPanel>
+								</StackPanel>
+							</StackPanel>
+						</ScrollViewer>
+					</PivotItem>
+					<!-- Changelog -->
+					<PivotItem x:Name="Changelog" Header="Changelog">
+						<ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+							<StackPanel>
+								<!-- Iconos -->
+								<StackPanel x:Name="Iconos" Orientation="Horizontal" HorizontalAlignment="Center">
+									<TextBlock HorizontalAlignment="Center" FontFamily="Segoe MDL2 Assets" Text="" FontSize="48" Foreground="{ThemeResource ColorApp}" Margin="3"/>
+									<TextBlock HorizontalAlignment="Center" FontFamily="Segoe MDL2 Assets" Text="" FontSize="48" Foreground="{ThemeResource ColorApp}" Margin="3"/>
+									<TextBlock HorizontalAlignment="Center" FontFamily="Segoe MDL2 Assets" Text="" FontSize="48" Foreground="{ThemeResource ColorApp}" Margin="3"/>
+								</StackPanel>
+								<!-- Contenido -->
+								<StackPanel Margin="0,11,0,0">
+									<!-- Versión 2.0.3.0 -->
+									<ListViewItem Content="• Versión 2.0.5.0 - 05/02/2018" Foreground="{ThemeResource ColorApp}" BorderThickness="0,0,0,1" BorderBrush="{ThemeResource ColorApp}" FontSize="18"/>
+									<TextBlock Margin="3" IsTextSelectionEnabled="True" SelectionHighlightColor="{ThemeResource ColorApp}" TextWrapping="Wrap" FontSize="16">
+                                            • La aplicación pasa a ser publicada por UA Devs.
+                                        
+										
+										
+										<LineBreak/>• Ahora la app es de código abierto, puedes consultar el código y contribuir en el desarrollo en GitHub.
+                                        
+										
+										
+										<LineBreak/>• Cambio de logo, SplashScreen y otros elementos visuales.
+                                        
+										
+										
+										<LineBreak/>• El inicio de la aplicación ahora debería ser más rápido.
+                                        
+										
+										
+										<LineBreak/>• Corregidos errores conocidos.
+                                        
+										
+										
+										<LineBreak/>• Compilada con las últimas APIs y actualizadas las referencias.
+                                        <LineBreak/>• Actualizadas las categorías del hamburguer menu nativo.
+
+
+
+                                    </TextBlock>
+								</StackPanel>
+							</StackPanel>
+						</ScrollViewer>
+					</PivotItem>
+					<!-- Próximamente -->
+					<PivotItem x:Name="Proximamente" Header="Próximamente">
+						<ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+							<StackPanel>
+								<!-- Iconos -->
+								<StackPanel x:Name="Iconos1" Orientation="Horizontal" HorizontalAlignment="Center">
+									<TextBlock HorizontalAlignment="Center" FontFamily="Segoe MDL2 Assets" Text="" FontSize="48" Foreground="{ThemeResource ColorApp}" Margin="3"/>
+									<TextBlock HorizontalAlignment="Center" FontFamily="Segoe MDL2 Assets" Text="" FontSize="48" Foreground="{ThemeResource ColorApp}" Margin="3"/>
+									<TextBlock HorizontalAlignment="Center" FontFamily="Segoe MDL2 Assets" Text="" FontSize="48" Foreground="{ThemeResource ColorApp}" Margin="3"/>
+								</StackPanel>
+								<!-- Coming Soon -->
+								<StackPanel Margin="0,11,0,0">
+									<ListViewItem Content="• Live Tile." BorderThickness="0,1,0,1" BorderBrush="Gray"/>
+									<ListViewItem Content="• Ajustes de interfaz."/>
+									<ListViewItem Content="• Sistema nativo para guardar productos." BorderThickness="0,1,0,1" BorderBrush="Gray"/>
+									<ListViewItem Content="• JumpLists."/>
+									<ListViewItem Content="• Navegar al enlace copiado en el portapapeles" BorderThickness="0,1,0,1" BorderBrush="Gray"/>
+									<ListViewItem Content="• Integración con Cortana."/>
+									<ListViewItem Content="• Mejorar la experiencia de usuario." BorderThickness="0,1,0,1" BorderBrush="Gray"/>
+									<ListViewItem Content="• Corregir errores conocidos."/>
+									<ListViewItem Content="• Implementar Fluent Design System por completo"  BorderThickness="0,1,0,1" BorderBrush="Gray"/>
+									<StackPanel Orientation="Horizontal" Margin="0,10">
+										<TextBlock Text="" Style="{ThemeResource IconoPequeño}"/>
+										<Button Content="ENVÍA TUS SUGERENCIAS" Margin="6,0,0,0" Width="200" Style="{ThemeResource BotónNaranja}" Click="Button_Click_1"/>
+									</StackPanel>
+								</StackPanel>
+							</StackPanel>
+						</ScrollViewer>
+					</PivotItem>
+				</Pivot>
+			</SplitView.Content>
+		</SplitView>
+	</Grid>
+</Page>
